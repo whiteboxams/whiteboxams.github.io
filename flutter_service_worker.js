@@ -82,9 +82,9 @@ const RESOURCES = {"assets/AssetManifest.bin": "a69dbde8cbe984fa3ff21bd9ccb46912
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "040b4950ebdd4c7db3178d1d9804a032",
-"/": "040b4950ebdd4c7db3178d1d9804a032",
-"main.dart.js": "f08931c9d6cdce0a0895b6c6a4c77419",
+"index.html": "324bfd6a7a3111558eb2f887e0068a3c",
+"/": "324bfd6a7a3111558eb2f887e0068a3c",
+"main.dart.js": "45002c811ab5dab2830d4cfcc2ba3e6c",
 "manifest.json": "1714279b962025c04f7947780cbb2218",
 "version.json": "c70ea8b19e7ce89f9f2ba6f93bcd203e"};
 // The application shell files that are downloaded before a service worker can
