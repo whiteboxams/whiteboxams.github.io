@@ -112448,7 +112448,7 @@ l=A.hX($.BQ().a_Z(l,g,31.425947279205154,74.24099745767073),t.i)
 s=10
 return A.l(l,$async$n_)
 case 10:f=a4
-if(f<=500){l=n.c
+if(f<=1500){l=n.c
 l.toString
 A.eE("Success","You are within the office premises.",!0,l)}else{A.ac("Position at: "+A.h(m)+" and "+A.h(f))
 l=n.c
