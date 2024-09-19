@@ -10,11 +10,7 @@
 
     For more details:
     * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
   -->
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="AMS">
@@ -31,28 +27,48 @@
   <title>whitebox_ams</title>
   <link rel="manifest" href="manifest.json">
 
+  <base href="/"> <!-- This ensures relative paths for assets are correct -->
+
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "3032602298";
+    var serviceWorkerVersion = ""4147454771"";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
 <body>
-  <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
-        }
+<script>
+  window.addEventListener('load', function(ev) {
+    // Register service worker to manage caching and loading
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('flutter_service_worker.js?v=4147454771').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    }
+
+    // Download main.dart.js and initialize the Flutter app
+    _flutter.loader.load({
+      serviceWorker: {
+        serviceWorkerVersion: serviceWorkerVersion,
+      },
+    }).then(function(engineInitializer) {
+      engineInitializer.initializeEngine().then(function(appRunner) {
+        appRunner.runApp();
       });
     });
-  </script>
+  });
+</script>
+
+<script>
+  // This script ensures that images with "data-src" are lazy-loaded if you are using lazy loading
+  document.addEventListener("DOMContentLoaded", function() {
+    const images = document.querySelectorAll('img[data-src]');
+    images.forEach(img => {
+      img.src = img.dataset.src;
+    });
+  });
+</script>
 </body>
 </html>
