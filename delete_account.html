@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account</title>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+</head>
+<body>
+    <h2>Delete Your Account</h2>
+
+    <!-- Form to Enter Email and Password -->
+    <form id="deleteAccountForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" required><br><br>
+
+        <!-- Loading indicator -->
+        <div id="loading" style="display: none;">Deleting...</div>
+
+        <!-- Delete Account Button -->
+        <button type="submit">Delete My Account</button>
+    </form>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAhvQqFLZMJ415G20LtncIVe96ME58rqU8",
+            authDomain: "ams-employees.firebaseapp.com",
+            projectId: "ams-employees",
+            storageBucket: "ams-employees.appspot.com",
+            messagingSenderId: "397204010510",
+            appId: "1:397204010510:web:831758ea8cb44eb8702e5f"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const firestore = firebase.firestore();
+
+        // Handle account deletion
+        document.getElementById("deleteAccountForm").addEventListener("submit", async function(event) {
+            event.preventDefault();  // Prevent the form from refreshing the page
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (email && password) {
+                // Show loading indicator
+                document.getElementById("loading").style.display = "block";
+
+                try {
+                    // Sign in with email and password
+                    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                    const user = userCredential.user;
+
+                    // Delete Firestore document using the email as the document ID
+                    await firestore.collection('users').doc(email).delete();
+
+                    // Delete the Firebase Auth user
+                    await user.delete();
+
+                    // Notify the user
+                    alert("Account deleted successfully.");
+                    // Optionally, redirect to a goodbye or home page
+                    window.location.href = "/goodbye.html";
+                } catch (error) {
+                    alert("Error deleting account: " + error.message);
+                } finally {
+                    // Hide loading indicator
+                    document.getElementById("loading").style.display = "none";
+                }
+            } else {
+                alert("Please enter both email and password.");
+            }
+        });
+
+    </script>
+</body>
+</html>
